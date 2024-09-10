@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Reddit+Sans+Condensed:wght@200..900&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Reddit Sans Condensed", sans-serif;
+        }
+
+        .box {
+            text-align: center;
+            margin-top: 5rem;
+        }
+
+        #password {
+            padding: 1%;
+            width: 20%;
+        }
+
+        #point {
+            margin-top: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h1>Password Strength Checker</h1>
+        <h3>Password</h3>
+        <input type="text" id="password" placeholder="Type your password here">
+        <h3>Strength</h3>
+        <div id="point"></div>
+    </div>
+    <script>
+        let passwordInput = document.getElementById("password");
+        let range = document.getElementById("point");
+
+        passwordInput.addEventListener("input", strengthCheck)
+
+        function strengthCheck() {
+            let input = passwordInput.value;
+            let strength = 0;
+            let message = "";
+
+            if (input.length >= 8) {
+                strength += 1
+            } else {
+                message += "Password is too short "
+            }
+
+            if (/\d/.test(input)) {
+                strength += 1
+            } else {
+                message += "Passowrd should contain atleast one number "
+            }
+
+            if (/[A-Z]/.test(input)) {
+                strength += 1
+            } else {
+                message += "Password should contain atleast one uppercase character "
+            }
+
+            if (/[a-z]/.test(input)) {
+                strength += 1
+            } else {
+                message += "Password should contain atleast one lowercase character "
+            }
+
+            if (/[!@#$%^&*()_+\-={};':"|,.<>/?]/.test(input)) {
+                strength += 1
+            } else {
+                message += "Password should contain atleast one special character "
+            }
+
+            if (strength == 5) {
+                message = "Password is strong ";
+                range.style.backgroundColor = "green";
+            } else if (strength >= 3) {
+                message = "Password is medium strength ";
+                range.style.backgroundColor = "orange";
+            } else {
+                message = "Password is weak " + message;
+                range.style.backgroundColor = "red"
+            }
+
+            range.innerText = message
+        }
+    </script>
+</body>
+
+</html>
